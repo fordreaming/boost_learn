@@ -25,6 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     m_paint = false;
+    m_mainWidget = new QWidget(this);
+    m_mainWidget = new QWidget(this);
+    m_mainWidget->setLayout(ui->horizontalLayout);
+    setCentralWidget(m_mainWidget);
 }
 
 MainWindow::~MainWindow()
@@ -67,20 +71,20 @@ void MainWindow::paintEvent(QPaintEvent *event)
     }
     //重绘事件
     Q_UNUSED(event)
+//    QRect rectWnd = this->rect();
+//    // 绘制文字
+//    QPainter painter(this);
+//    // 设置画笔颜色
+//    painter.setPen(QPen(Qt::black, 4, Qt::DashDotLine, Qt::RoundCap));
 
-    QRect rectWnd = this->rect();
-    // 绘制文字
-    QPainter painter(this);
-    // 设置画笔颜色
-    painter.setPen(QPen(Qt::black, 4, Qt::DashDotLine, Qt::RoundCap));
+//    painter.drawRect(300, 300, 700, 400);
 
-    painter.drawRect(300, 300, 200, 400);
-
-    painter.drawEllipse(QPoint(500, 500), 50, 50);
-    //分离intersection交点
-//    painter.setBrush(Qt::NoBrush);
-    painter.setBrush(QBrush(QColor(0, 255, 0)));
-    painter.drawPolygon(&m_polygon[0], m_polygon.size());
+//    painter.drawEllipse(QPoint(500, 500), 50, 50);
+//    //分离intersection交点
+//    painter.setBrush(QBrush(QColor(0, 255, 0)));
+//    if(!m_polygon.empty()) {
+//        painter.drawPolygon(&m_polygon[0], m_polygon.size());
+//    }
 }
 
 void MainWindow::on_btnCalc_clicked()
@@ -89,7 +93,7 @@ void MainWindow::on_btnCalc_clicked()
     typedef boost::geometry::model::polygon<point> polygon;
 
     const double buffer_distance = 50; // radius of circle
-    const int points_per_circle = 72;
+    const int points_per_circle = 36;
     boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(buffer_distance);
     boost::geometry::strategy::buffer::join_round join_strategy(points_per_circle);
     boost::geometry::strategy::buffer::end_round end_strategy(points_per_circle);
@@ -107,7 +111,7 @@ void MainWindow::on_btnCalc_clicked()
     // first item of result is circle with 1 radius and (5,5) point as center
     // result should have 1 polygon
     polygon rect; // your rectangle
-    boost::geometry::read_wkt("POLYGON((300 300,300 700,500 700,500 300,300 300))",rect);
+    boost::geometry::read_wkt("POLYGON((300 300,300 500,1000 700,500 300,300 300))",rect);
 
     std::deque<polygon> intersectionGeometry;
     boost::geometry::intersection(rect,result.front(),intersectionGeometry);
@@ -126,4 +130,9 @@ void MainWindow::on_btnDraw_clicked()
     m_paint = true;
     GetVertical();
     repaint();
+}
+
+void MainWindow::on_shapeComboBox_activated(int index)
+{
+
 }
