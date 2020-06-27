@@ -7,6 +7,11 @@
 #include <iostream>
 #include <string>
 #include <QString>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <drawwidget.h>
+#include <QPushButton>
+#include <QLabel>
 
 using std::fstream;
 
@@ -32,12 +37,20 @@ private slots:
 
     void on_btnDraw_clicked();
 
+    void on_shapeComboBox_activated(int index);
+
 private:
     Ui::MainWindow                  *ui;
     std::ostringstream              m_intersectionStream;
     bool                            m_paint;                    //false: 不重绘        true:重绘
     std::string                     m_string;
     QList<QPoint>                   m_polygon;
+
+    QLabel                          *shapeLabel;
+
+
+
+
 };
 
 #endif // MAINWINDOW_H
