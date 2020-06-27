@@ -51,8 +51,22 @@ void DrawWidget::mouseMoveEvent(QMouseEvent *e)
 
 void DrawWidget::paintEvent(QPaintEvent *)
 {
+//    QPainter painter(this);
+//    painter.drawPixmap(QPoint(0,0),*pix);
+    QRect rectWnd = this->rect();
+    // 绘制文字
     QPainter painter(this);
-    painter.drawPixmap(QPoint(0,0),*pix);
+    // 设置画笔颜色
+    painter.setPen(QPen(Qt::black, 4, Qt::DashDotLine, Qt::RoundCap));
+
+    painter.drawRect(300, 300, 700, 400);
+
+    painter.drawEllipse(QPoint(500, 500), 50, 50);
+    //分离intersection交点
+    painter.setBrush(QBrush(QColor(0, 255, 0)));
+//    if(!m_polygon.empty()) {
+//        painter.drawPolygon(&m_polygon[0], m_polygon.size());
+//    }
 }
 
 void DrawWidget::resizeEvent(QResizeEvent *event)

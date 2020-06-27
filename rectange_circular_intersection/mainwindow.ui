@@ -14,51 +14,58 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="DrawWidget" name="widget" native="true">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>891</width>
-      <height>531</height>
+      <x>21</x>
+      <y>17</y>
+      <width>1141</width>
+      <height>541</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QPushButton" name="btnCalc">
-    <property name="geometry">
-     <rect>
-      <x>1010</x>
-      <y>180</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>计算交集</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnDraw">
-    <property name="geometry">
-     <rect>
-      <x>970</x>
-      <y>240</y>
-      <width>193</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>绘制图像</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="shapeComboBox">
-    <property name="geometry">
-     <rect>
-      <x>1010</x>
-      <y>140</y>
-      <width>87</width>
-      <height>22</height>
-     </rect>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,0">
+     <item>
+      <widget class="DrawWidget" name="widget" native="true">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QComboBox" name="shapeComboBox"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDraw">
+         <property name="text">
+          <string>绘制图像</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnCalc">
+         <property name="text">
+          <string>计算交集</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

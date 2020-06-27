@@ -12,6 +12,7 @@
 #include <drawwidget.h>
 #include <QPushButton>
 #include <QLabel>
+#include <QWidget>
 
 using std::fstream;
 
@@ -47,6 +48,7 @@ private:
     QList<QPoint>                   m_polygon;
 
     QLabel                          *shapeLabel;
+    QWidget                         *m_mainWidget;
 
 
 
