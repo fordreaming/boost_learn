@@ -10,6 +10,8 @@ DrawWidget::DrawWidget(QWidget *parent) :
     pix =new QPixmap(size());      	//此QPixmap对象用来准备随时接收绘制的内容
     pix->fill(Qt::white);           //填充背景色为白色
     setMinimumSize(600,400);      	//设置绘制区窗体的最小尺寸
+    //初始化图形相关信息
+
 }
 
 void DrawWidget::setStyle(int s)
@@ -43,7 +45,7 @@ void DrawWidget::mouseMoveEvent(QMouseEvent *e)
 
     painter->begin(pix);
     painter->setPen(pen);
-    painter->drawLine(startPos,e->pos());
+    painter->drawLine(startPos, e->pos());
     painter->end();
     startPos =e->pos();
     update();
@@ -51,22 +53,24 @@ void DrawWidget::mouseMoveEvent(QMouseEvent *e)
 
 void DrawWidget::paintEvent(QPaintEvent *)
 {
-//    QPainter painter(this);
-//    painter.drawPixmap(QPoint(0,0),*pix);
-    QRect rectWnd = this->rect();
-    // 绘制文字
+    SetRect();
     QPainter painter(this);
-    // 设置画笔颜色
-    painter.setPen(QPen(Qt::black, 4, Qt::DashDotLine, Qt::RoundCap));
+    QRect target(m_rectList[0][0], m_rectList[0][1], m_rectList[0][2], m_rectList[0][3]);
+    painter.drawPixmap(target, *pix);
+//    QRect rectWnd = this->rect();
+//    // 绘制文字
+//    QPainter painter(this);
+//    // 设置画笔颜色
+//    painter.setPen(QPen(Qt::black, 4, Qt::DashDotLine, Qt::RoundCap));
 
-    painter.drawRect(300, 300, 700, 400);
+//    painter.drawRect(300, 300, 700, 400);
 
-    painter.drawEllipse(QPoint(500, 500), 50, 50);
-    //分离intersection交点
-    painter.setBrush(QBrush(QColor(0, 255, 0)));
-//    if(!m_polygon.empty()) {
-//        painter.drawPolygon(&m_polygon[0], m_polygon.size());
-//    }
+//    painter.drawEllipse(QPoint(500, 500), 50, 50);
+//    //分离intersection交点
+//    painter.setBrush(QBrush(QColor(0, 255, 0)));
+////    if(!m_polygon.empty()) {
+////        painter.drawPolygon(&m_polygon[0], m_polygon.size());
+////    }
 }
 
 void DrawWidget::resizeEvent(QResizeEvent *event)
@@ -80,6 +84,28 @@ void DrawWidget::resizeEvent(QResizeEvent *event)
         pix = newPix;
     }
     QWidget::resizeEvent(event);
+}
+
+void DrawWidget::SetRect()
+{
+    m_rectList.reserve(10);
+    m_rectList[0].reserve(4);
+    m_rectList[0][0] = 300;
+    m_rectList[0][1] = 300;
+    m_rectList[0][2] = 700;
+    m_rectList[0][3] = 400;
+}
+
+void DrawWidget::SetEllipse()
+{
+    m_ellipseList.reserve(10);
+    m_ellipseList[0] = {500, 500, 50, 50};
+}
+
+void DrawWidget::SetPolygon()
+{
+    m_polygonList.reserve(10);
+    m_polygonList[0] = {};
 }
 
 void DrawWidget::clear()

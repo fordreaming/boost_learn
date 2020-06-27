@@ -26,11 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_paint = false;
     m_mainWidget = new QWidget(this);
-    ui->shapeComboBox->addItem(tr("Rectangle"));
-    ui->shapeComboBox->addItem(tr("circular"));
-    ui->shapeComboBox->addItem(tr("Ellipse"));
-    ui->shapeComboBox->addItem(tr("Polygon"));
-    ui->shapeComboBox->addItem(tr("Points"));
     m_mainWidget = new QWidget(this);
     m_mainWidget->setLayout(ui->horizontalLayout);
     setCentralWidget(m_mainWidget);

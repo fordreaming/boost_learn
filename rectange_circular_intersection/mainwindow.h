@@ -49,10 +49,6 @@ private:
 
     QLabel                          *shapeLabel;
     QWidget                         *m_mainWidget;
-
-
-
-
 };
 
 #endif // MAINWINDOW_H

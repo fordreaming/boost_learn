@@ -22,6 +22,16 @@ public:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
 
+    void SetRect();
+    void SetEllipse();
+    void SetPolygon();
+
+
+public:
+    QList<QList<double>>                   m_rectList;
+    QList<QList<double>>                   m_ellipseList;
+    QList<QList<double>>                   m_polygonList;
+
 signals:
     
 public slots:
