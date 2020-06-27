@@ -126,7 +126,4 @@ void MainWindow::on_btnDraw_clicked()
     m_paint = true;
     GetVertical();
     repaint();
-    //绘制矩形
-    //绘制圆形
-    //绘制交集
 }
