@@ -32,10 +32,13 @@ private slots:
 
     void on_btnDraw_clicked();
 
+    void on_btnOriginalShow_clicked();
+
 private:
     Ui::MainWindow                  *ui;
     std::ostringstream              m_intersectionStream;
     bool                            m_paint;                    //false: 不重绘        true:重绘
+    bool                            m_paintPost;                //点击计算再进行绘制
     std::string                     m_string;
     QList<QPoint>                   m_polygon;
 };

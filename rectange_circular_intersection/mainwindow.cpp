@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     m_paint = false;
+    m_paintPost = false;
 }
 
 MainWindow::~MainWindow()
@@ -76,9 +77,27 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
     painter.drawRect(300, 300, 200, 400);
 
-    painter.drawEllipse(QPoint(500, 500), 50, 50);
+//    painter.drawEllipse(QPoint(500, 500), 50, 50);
+    QList<QPoint> points;
+//    points.append(QPoint(600, 350));
+//    points.append(QPoint(500, 700));
+//    points.append(QPoint(550, 800));
+//    points.append(QPoint(350, 600));
+//    points.append(QPoint(500, 700));
+//    points.append(QPoint(500, 400));
+    points.append(QPoint(600, 350));
+    points.append(QPoint(500, 400));
+    points.append(QPoint(500, 700));
+    points.append(QPoint(350, 750));
+    points.append(QPoint(550, 800));
+    painter.drawPolygon(&points[0], points.size());
+
+
     //分离intersection交点
 //    painter.setBrush(Qt::NoBrush);
+    if(!m_paintPost) {
+        return ;
+    }
     painter.setBrush(QBrush(QColor(0, 255, 0)));
     painter.drawPolygon(&m_polygon[0], m_polygon.size());
 }
@@ -109,10 +128,24 @@ void MainWindow::on_btnCalc_clicked()
     polygon rect; // your rectangle
     boost::geometry::read_wkt("POLYGON((300 300,300 700,500 700,500 300,300 300))",rect);
 
+    polygon poly;
+    boost::geometry::read_wkt("POLYGON((600 350, 500 400, 500 700, 350 750, 550 800, 600 350))", poly);
+
+//    std::deque<polygon> intersectionGeometry;
+//    boost::geometry::intersection(rect,result.front(),intersectionGeometry);
+//    if (intersectionGeometry.size() == 1)
+//        m_intersectionStream << boost::geometry::wkt(intersectionGeometry.front()) << std::endl;
     std::deque<polygon> intersectionGeometry;
-    boost::geometry::intersection(rect,result.front(),intersectionGeometry);
+    boost::geometry::intersection(rect, poly, intersectionGeometry);
     if (intersectionGeometry.size() == 1)
         m_intersectionStream << boost::geometry::wkt(intersectionGeometry.front()) << std::endl;
+    int i = 0;
+    double area;
+    BOOST_FOREACH(polygon const& p, intersectionGeometry)
+    {
+        std::cout << i++ << ": " << boost::geometry::area(p) << std::endl;
+        area = boost::geometry::area(p);
+    }
 
     m_string = m_intersectionStream.str();
 }
@@ -123,10 +156,16 @@ void MainWindow::on_btnDraw_clicked()
         QMessageBox::information(this, tr("warning!"), tr("please press calculate first"));
         return;
     }
-    m_paint = true;
+    m_paintPost = true;
     GetVertical();
     repaint();
     //绘制矩形
     //绘制圆形
     //绘制交集
+}
+
+void MainWindow::on_btnOriginalShow_clicked()
+{
+    m_paint = true;
+    repaint();
 }
