@@ -7,6 +7,11 @@
 #include <iostream>
 #include <string>
 #include <QString>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QWidget>
 
 using std::fstream;
 
@@ -33,6 +38,8 @@ private slots:
     void on_btnDraw_clicked();
 
     void on_btnOriginalShow_clicked();
+    void on_shapeComboBox_activated(int index);
+
 
 private:
     Ui::MainWindow                  *ui;
@@ -41,6 +48,9 @@ private:
     bool                            m_paintPost;                //点击计算再进行绘制
     std::string                     m_string;
     QList<QPoint>                   m_polygon;
+
+    QLabel                          *shapeLabel;
+    QWidget                         *m_mainWidget;
 };
 
 #endif // MAINWINDOW_H
